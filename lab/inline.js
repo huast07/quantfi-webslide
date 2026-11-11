@@ -14,6 +14,7 @@
     19: 's4', 20: 's4', 38: 's4',
     21: 's5', 39: 's5',
     22: 'orch', 23: 'orch',
+    27: 'backtest', 28: 'backtest',
   };
   const SOURCES = [['sim', 'Simulated day'], ['-2', 'Day −2'], ['-1', 'Day −1'], ['0', 'Day 0']];
 
@@ -29,6 +30,8 @@
     const evidence = key.startsWith('eda');
     dock.innerHTML = key === 'orch'
       ? `<span class="dock-label">LAB</span>${dockButton('orch', 'replay', '▶', 'STEP THROUGH')}`
+      : key === 'backtest'
+        ? `<span class="dock-label">LAB</span>${dockButton(key, 'derive', '∂', 'CASE EXPLORER')}${dockButton(key, 'replay', '▶', 'CASE IN ACTION', 'secondary')}`
       : evidence
         ? `<span class="dock-label">EDA</span>${dockButton(key, 'derive', '∂', 'SEE THE EVIDENCE')}${dockButton(key, 'replay', '▦', 'SCORECARD', 'secondary')}`
         : `<span class="dock-label">LAB</span>${dockButton(key, 'derive', '∂', 'DERIVATION', 'secondary')}${dockButton(key, 'replay', '▶', 'STRATEGY IN ACTION')}`;

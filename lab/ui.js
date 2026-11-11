@@ -5,7 +5,8 @@
  *     replay: { label, controls, run(p) -> result, length(result), view(result, i, p) -> {panels, fullWidth?, stats, event}, note }
  *          or { label, controls, render(p) -> html, note }   (static interactive panel)
  *   }
- * A control is { id, label, type: 'range' | 'select', min, max, step, value, options: [[value, label]], format }. */
+ * A control is { id, label, type: 'range' | 'select', min, max, step, value, options: [[value, label]], format }.
+ * `steps[i].controls` and `replay.controls` may be getters, so a lab can seed control values from its own state. */
 (function (root) {
   'use strict';
   const QF = root.QF;
@@ -279,5 +280,15 @@
     selectTab(tab);
   }
 
-  QF.labs = { register: (key, def) => registry.set(key, def), open, has: (key) => registry.has(key) };
+  /** Redraw the open lab after a lab changed its own state (for example, a product chip inside a step). */
+  function refresh() {
+    if (!dialog || !dialog.open || !lab) return;
+    if ($('.lab-replay').hidden) showStep(stepIndex);
+    else {
+      setupReplay();
+      selectTab('replay');
+    }
+  }
+
+  QF.labs = { register: (key, def) => registry.set(key, def), open, refresh, has: (key) => registry.has(key) };
 })(window);
