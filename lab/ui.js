@@ -260,7 +260,7 @@
     }
   }
 
-  function open(key, tab = 'derive') {
+  function open(key, tab = 'derive', step = 0) {
     const definition = registry.get(key);
     if (!definition) throw new Error(`Unknown strategy lab: ${key}`);
     if (!dialog) build();
@@ -270,10 +270,10 @@
     $('.lab-title').textContent = lab.title;
     $('.lab-evidence').innerHTML = lab.evidence;
     $('.lab-source').textContent = lab.source;
+    $('.lab-tabs [data-tab="derive"]').textContent = `① ${lab.deriveLabel || 'Derivation'}`;
     $('.lab-tabs [data-tab="replay"]').textContent = `② ${lab.replay.label || 'Strategy in action'}`;
-    stepIndex = 0;
     stepParams = {};
-    showStep(0);
+    showStep(QF.clip(step, 0, lab.steps.length - 1));
     setupReplay();
     if (!dialog.open) dialog.showModal();
     selectTab(tab);

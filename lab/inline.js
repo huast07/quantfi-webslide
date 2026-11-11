@@ -7,6 +7,7 @@
   const { lines, dayTicks, COLORS, fmt, esc } = QF.chart;
 
   const LAUNCHERS = {
+    9: 'eda-data', 10: 'eda',
     16: 's1', 34: 's1',
     17: 's2', 35: 's2', 36: 's2',
     18: 's3', 37: 's3',
@@ -25,9 +26,12 @@
       dock.innerHTML = '';
       return;
     }
+    const evidence = key.startsWith('eda');
     dock.innerHTML = key === 'orch'
       ? `<span class="dock-label">LAB</span>${dockButton('orch', 'replay', '▶', 'STEP THROUGH')}`
-      : `<span class="dock-label">LAB</span>${dockButton(key, 'derive', '∂', 'DERIVATION', 'secondary')}${dockButton(key, 'replay', '▶', 'STRATEGY IN ACTION')}`;
+      : evidence
+        ? `<span class="dock-label">EDA</span>${dockButton(key, 'derive', '∂', 'SEE THE EVIDENCE')}${dockButton(key, 'replay', '▦', 'SCORECARD', 'secondary')}`
+        : `<span class="dock-label">LAB</span>${dockButton(key, 'derive', '∂', 'DERIVATION', 'secondary')}${dockButton(key, 'replay', '▶', 'STRATEGY IN ACTION')}`;
     dock.onclick = (e) => {
       const b = e.target.closest('[data-lab]');
       if (b) QF.labs.open(b.dataset.lab, b.dataset.tab);
@@ -104,6 +108,27 @@
     return el;
   }
 
+  /* ---------- slides 9 and 10: each EDA chart or card opens the step that shows its evidence ---------- */
+
+  const SLIDE10_SPOTS = [
+    [2.9, 18.8, 21.8, 23.6, 0, 'Fixed anchor'], [73, 19, 24.6, 23.6, 1, 'Mean reversion'],
+    [2.7, 45.4, 22.5, 22.8, 2, 'Sum constraint'], [73.2, 45.4, 24.5, 22.8, 3, 'Step-downs'],
+    [2.9, 73, 22, 21.5, 4, 'Big jumps'], [76.7, 71.4, 20.3, 23.6, 5, 'Mispriced options', 'tl'],
+  ];
+  const SLIDE9_SPOTS = [
+    [9.5, 34, 30, 19.5, 0, 'Clean, continuous data', 'tr'], [61.5, 34, 33, 19.5, 1, 'Order book doesn’t predict price', 'tl'],
+    [12, 59.5, 28, 19.5, 2, 'Most traders are random', 'tr'], [61.5, 59.5, 31, 19.5, 3, 'Profit comes from structure', 'tl'],
+  ];
+
+  function evidenceSpots(lab, spots) {
+    return () => {
+      const el = document.createElement('div');
+      el.className = 'evidence-layer';
+      el.innerHTML = spots.map(([x, y, w, h, step, name, corner = 'br']) => `<button class="evidence-spot ${corner}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%" data-open-lab="${lab}" data-step="${step}" aria-label="See the evidence: ${esc(name)}"><span><b>SEE THE EVIDENCE</b></span></button>`).join('');
+      return el;
+    };
+  }
+
   /* ---------- slides 38 and 39: appendix content from the S4 / S5 notes ---------- */
 
   const row = (tone, title, aside, trade, risk) => `<section class="row ${tone}"><h4>${title}<em>${aside}</em></h4>
@@ -142,7 +167,13 @@
     return el;
   }
 
-  const EMBEDS = { 19: telluriumPathEmbed, 20: tickChangesEmbed, 38: appendixS4, 39: appendixS5 };
+  const EMBEDS = { 9: evidenceSpots('eda-data', SLIDE9_SPOTS), 10: evidenceSpots('eda', SLIDE10_SPOTS), 19: telluriumPathEmbed, 20: tickChangesEmbed, 38: appendixS4, 39: appendixS5 };
+
+  // Any element with data-open-lab (slide hotspots, links inside a lab) opens that lab at data-step.
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-open-lab]');
+    if (b) QF.labs.open(b.dataset.openLab, b.dataset.tab || 'derive', Number(b.dataset.step) || 0);
+  });
 
   document.addEventListener('slidechange', (e) => {
     const n = e.detail.slide;
