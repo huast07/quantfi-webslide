@@ -1,22 +1,21 @@
-/* On-slide interactivity: lab launch buttons, the TELLURIUM charts that fill the empty
- * chart areas on slides 19 and 20, and the content for the blank appendix slides 38 and 39.
+/* On-slide interactivity: lab launch buttons, the evidence hotspots on slides 9 and 10, and the
+ * content for the blank appendix slides 37 and 38.
  * Listens for the `slidechange` event dispatched by deck.js. */
 (function (root) {
   'use strict';
   const QF = root.QF;
-  const { lines, dayTicks, COLORS, fmt, esc } = QF.chart;
+  const { esc } = QF.chart;
 
   const LAUNCHERS = {
     9: 'eda-data', 10: 'eda',
-    16: 's1', 34: 's1',
-    17: 's2', 35: 's2', 36: 's2',
-    18: 's3', 37: 's3',
-    19: 's4', 20: 's4', 38: 's4',
-    21: 's5', 39: 's5',
-    22: 'orch', 23: 'orch',
-    27: 'backtest', 28: 'backtest',
+    16: 's1', 33: 's1',
+    17: 's2', 34: 's2', 35: 's2',
+    18: 's3', 36: 's3',
+    19: 's4', 37: 's4',
+    20: 's5', 38: 's5',
+    21: 'orch', 22: 'orch',
+    26: 'backtest', 27: 'backtest',
   };
-  const SOURCES = [['sim', 'Simulated day'], ['-2', 'Day −2'], ['-1', 'Day −1'], ['0', 'Day 0']];
 
   const dockButton = (key, tab, icon, text, cls = '') => `<button class="${cls}" data-lab="${key}" data-tab="${tab}" aria-label="Open lab: ${text.toLowerCase()}" title="Open lab: ${text.toLowerCase()}">${icon}<span class="dock-text"> ${text}</span></button>`;
 
@@ -41,76 +40,6 @@
     };
   }
 
-  function toolbar(state, options, readout, extra = '') {
-    const buttons = options.map(([v, l]) => `<button data-source="${v}" aria-pressed="${String(state.source === v)}">${esc(l)}</button>`).join('');
-    return `<div class="embed-toolbar">${buttons}${extra}<span class="embed-readout">${readout}</span></div>`;
-  }
-
-  /* ---------- slide 20: tick changes vs the detector threshold ---------- */
-
-  function tickChangesEmbed() {
-    const el = document.createElement('div');
-    el.className = 'slide-embed';
-    Object.assign(el.style, { left: '4.1%', right: '4.4%', top: '19.5%', bottom: '15.8%' });
-    const state = { source: 'sim', floor: 38.75 };
-    const render = () => {
-      const { mid } = QF.s4.source(state.source);
-      const det = QF.s4.detect(mid, { floor: state.floor });
-      const jumpTicks = new Set(det.jumps.map((j) => j.tick));
-      let maxCalm = 0;
-      for (let t = 1; t < det.change.length; t++) if (!jumpTicks.has(t)) maxCalm = Math.max(maxCalm, Math.abs(det.change[t]));
-      const up = det.jumps.filter((j) => j.dir > 0).length;
-      const smallest = det.jumps.length ? Math.min(...det.jumps.map((j) => j.size)) : NaN;
-      const thr = Math.max(state.floor, 10 * det.sigmaCalm);
-      const readout = `<b>${det.jumps.length}</b> jumps (${up} up) · smallest <b>${fmt(smallest, 1)}</b> · largest calm move <b>${fmt(maxCalm, 1)}</b>`;
-      const slider = `<label class="embed-threshold">floor <input type="range" min="5" max="80" step="0.25" value="${state.floor}" aria-label="Detector floor"><b>${fmt(state.floor, 2)}</b></label>`;
-      const chart = lines({
-        theme: 'dark', n: det.change.length, w: 1200, h: 470, y: [-330, 330], pad: { l: 52, b: 26 },
-        yLabel: 'Δmid per tick', xTicks: dayTicks(det.change.length),
-        series: [{ ys: det.change, color: '#ffffffd9', width: 1.1 }],
-        bands: [{ y0: -thr, y1: thr, color: '#82e19c1c' }],
-        hlines: [{ y: thr, color: COLORS.mint, dash: '6 4', label: `+max(${fmt(state.floor, 2)}, 10σ)` }, { y: -thr, color: COLORS.mint, dash: '6 4' }, { y: 0, color: '#ffffff40' }],
-        markers: det.jumps.map((j) => ({ x: j.tick, y: det.change[j.tick], color: j.dir > 0 ? COLORS.mint : '#ff9b85', r: 6, title: `Jump of ${fmt(j.size, 1)} at tick ${fmt(j.tick)}` })),
-      });
-      el.innerHTML = toolbar(state, SOURCES, readout, slider) + chart;
-    };
-    el.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-source]');
-      if (b) { state.source = b.dataset.source; render(); }
-    });
-    el.addEventListener('input', (e) => {
-      if (e.target.type === 'range') { state.floor = +e.target.value; render(); }
-    });
-    render();
-    return el;
-  }
-
-  /* ---------- slide 19: TELLURIUM random walk with jumps ---------- */
-
-  function telluriumPathEmbed() {
-    const el = document.createElement('div');
-    el.className = 'slide-embed light';
-    Object.assign(el.style, { left: '49%', right: '5.3%', top: '39.6%', bottom: '11.5%' });
-    const state = { source: '-1' };
-    const render = () => {
-      const { mid } = QF.s4.source(state.source);
-      const { jumps } = QF.s4.detect(mid);
-      const up = jumps.filter((j) => j.dir > 0).length;
-      const chart = lines({
-        n: mid.length, w: 760, h: 380, pad: { l: 58 }, yLabel: 'TELLURIUM mid', xTicks: dayTicks(mid.length),
-        series: [{ ys: mid, color: COLORS.blue, width: 1.5 }],
-        markers: jumps.map((j) => ({ x: j.tick, y: mid[j.tick], color: j.dir > 0 ? COLORS.green : COLORS.coral, shape: j.dir > 0 ? 'up' : 'down', r: 6, title: `${j.dir > 0 ? 'Up' : 'Down'} jump ${fmt(j.size, 1)}` })),
-      });
-      el.innerHTML = toolbar(state, SOURCES.slice(1), `<b>${jumps.length}</b> jumps · ${up} up / ${jumps.length - up} down`) + chart;
-    };
-    el.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-source]');
-      if (b) { state.source = b.dataset.source; render(); }
-    });
-    render();
-    return el;
-  }
-
   /* ---------- slides 9 and 10: each EDA chart or card opens the step that shows its evidence ---------- */
 
   const SLIDE10_SPOTS = [
@@ -132,7 +61,7 @@
     };
   }
 
-  /* ---------- slides 38 and 39: appendix content from the S4 / S5 notes ---------- */
+  /* ---------- slides 37 and 38: appendix content from the S4 / S5 notes ---------- */
 
   const row = (tone, title, aside, trade, risk) => `<section class="row ${tone}"><h4>${title}<em>${aside}</em></h4>
     <div><b>TRADE</b><p>${trade}</p></div><div><b>RISK</b><p>${risk}</p></div></section>`;
@@ -170,7 +99,7 @@
     return el;
   }
 
-  const EMBEDS = { 9: evidenceSpots('eda-data', SLIDE9_SPOTS), 10: evidenceSpots('eda', SLIDE10_SPOTS), 19: telluriumPathEmbed, 20: tickChangesEmbed, 38: appendixS4, 39: appendixS5 };
+  const EMBEDS = { 9: evidenceSpots('eda-data', SLIDE9_SPOTS), 10: evidenceSpots('eda', SLIDE10_SPOTS), 37: appendixS4, 38: appendixS5 };
 
   // Any element with data-open-lab (slide hotspots, links inside a lab) opens that lab at data-step.
   document.addEventListener('click', (e) => {

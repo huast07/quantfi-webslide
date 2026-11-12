@@ -87,22 +87,8 @@ dialog.lab::backdrop{background:#061631c4}
 .lab-event{min-height:1.4em;margin:8px 0 0;font-size:12.5px;color:#36507f}
 .lab-note{margin:10px 0 0;padding:10px 13px;background:#fff8e6;border:1px solid #f0dfb2;border-radius:6px;font-size:12px;line-height:1.55;color:#5f4b17}
 
-/* ---------- on-slide embeds ---------- */
-.slide-embed{position:absolute;z-index:1;display:flex;flex-direction:column;font-family:Poppins,Arial,sans-serif}
-.slide-embed svg{display:block;flex:1 1 0;min-height:0;width:100%;height:100%} /* fit inside the box; the viewBox keeps the aspect ratio */
-.embed-toolbar{display:flex;flex-wrap:wrap;gap:.45cqw;align-items:center;margin-bottom:.5cqw}
-.embed-toolbar button{border:1px solid #ffffff66;background:transparent;color:#fff;border-radius:2cqw;padding:.3cqw .9cqw;font:600 max(8px,.78cqw) Poppins,Arial,sans-serif;cursor:pointer}
-.embed-toolbar button[aria-pressed="true"]{background:#82e19c;border-color:#82e19c;color:#143a80}
-.embed-toolbar .embed-readout{margin-left:auto;font-size:max(8px,.85cqw);color:#dce8ff}
-.embed-toolbar .embed-readout b{color:#82e19c}
-.slide-embed.light .embed-toolbar button{border-color:#2e5fc455;color:#173a80}
-.slide-embed.light .embed-toolbar button[aria-pressed="true"]{background:#2e5fc4;border-color:#2e5fc4;color:#fff}
-.slide-embed.light .embed-toolbar .embed-readout{color:#36507f}
-.slide-embed.light .embed-toolbar .embed-readout b{color:#1855b4}
-.embed-threshold{display:flex;align-items:center;gap:.6cqw;font-size:max(8px,.8cqw);color:#dce8ff}
-.embed-threshold input{width:12cqw;accent-color:#82e19c}
 
-/* Appendix cards that fill the blank appendix slides (38, 39), styled after slide 37. */
+/* Appendix cards that fill the blank appendix slides (37, 38), styled after slide 36. */
 .appendix{position:absolute;left:4.1%;right:4.1%;top:21.5%;bottom:5.5%;display:grid;grid-template-rows:1fr 1fr 1fr auto;gap:1.1cqw;font-family:Poppins,Arial,sans-serif;color:#0f1d3d}
 .appendix .row{background:#6ea8ec;border-radius:.6cqw;padding:1cqw 2.2cqw;display:grid;grid-template-columns:1fr 1fr;column-gap:3cqw;row-gap:.25cqw;align-content:start}
 .appendix .row.light{background:#c6e3fd}

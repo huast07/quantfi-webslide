@@ -90,7 +90,7 @@
         baseline: 'Informed traders hit quotes just before the price moves their way, so a market maker’s gain would fade to zero or below in the ticks after each trade.',
         observed: `${name}: ${pct(base.atTouchShare)} of ${fmt(base.prints.length)} market prints happen exactly at the best bid or ask. 20 ticks later the passive side is still up ${fmt(base.meanEdge, 1)} per lot against a half spread of ${fmt(base.meanHalf, 1)}: the price does not follow the trade.`,
         conclusion: 'The flow is uninformed: it crosses the spread and the price ignores it. Resting quotes at the best bid and ask collect that half spread.',
-        strategy: 'S1 and S5 quote at the touch and skew size to manage inventory (slides 16 and 21).',
+        strategy: 'S1 and S5 quote at the touch and skew size to manage inventory (slides 16 and 20).',
       }) + K.split(K.legend([[COLORS.blue, 'Where market trades print']]) + where, K.legend([[COLORS.green, 'Maker gain after the print'], [COLORS.slate, 'Half spread']]) + markout);
     },
   };
@@ -114,7 +114,7 @@
         baseline: 'With no structure, prices would be random walks and the half spread from noise traders would be the only edge.',
         observed: 'Six products break the random walk in specific, testable ways: a fixed price, a pull to a mean, a sum constraint, slow steps, discrete jumps and an option premium.',
         conclusion: 'Profit comes from exploiting each product’s structure, one specialised strategy per pattern, on top of market making.',
-        strategy: 'Five strategy families (S1-S5) under one orchestrator (slides 13 to 22).',
+        strategy: 'Five strategy families (S1-S5) under one orchestrator (slides 13 to 21).',
       }) + `<div class="eda-links">${cards}</div>`;
     },
   };

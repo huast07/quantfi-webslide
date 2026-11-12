@@ -1,7 +1,7 @@
-"""Build slideshow/data/case-data.js for the backtesting lab (slides 27 and 28).
+"""Build slideshow/data/case-data.js for the backtesting lab (slides 26 and 27).
 
 For every case in the backtester's catalogue this runs the submitted trader (Trading_Algorithm/trader2.py)
-through the unmodified prosperity3bt engine on seeds 3, 4 and 5, the held-out seeds quoted on slide 28.
+through the unmodified prosperity3bt engine on seeds 3, 4 and 5, the held-out seeds quoted on slide 27.
 Cases share random numbers, so a case on seed s differs from the regular day on seed s only by what the
 case changes. That lets the lab show the exact effect of each case and how each strategy reacted.
 

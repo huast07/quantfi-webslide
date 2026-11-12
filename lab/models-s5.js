@@ -54,7 +54,7 @@
   const utility = (q, mu, sigma, lambda) => q * mu - 0.5 * lambda * q * q * sigma * sigma;
   const kellyQ = (mu, sigma, lambda) => mu / (lambda * sigma * sigma);
 
-  /** Slide 23: route a proposal, clip it to the limit, fill part of it, reconcile the position. */
+  /** Slide 22: route a proposal, clip it to the limit, fill part of it, reconcile the position. */
   function orchestrate({ position, limit, proposal, filled }) {
     const room = proposal >= 0 ? limit - position : limit + position;
     const approved = QF.sign(proposal) * Math.min(Math.abs(proposal), Math.max(room, 0));

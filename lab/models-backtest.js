@@ -56,7 +56,7 @@
     });
   }
 
-  /** Tier-weighted mean P&L: each tier's weight is split equally among its cases (as on slide 28). */
+  /** Tier-weighted mean P&L: each tier's weight is split equally among its cases (as on slide 27). */
   function weightedMean() {
     return memo('weighted', () => TIERS.reduce((acc, tier) => {
       const inTier = cases().filter((c) => c.tier === tier);

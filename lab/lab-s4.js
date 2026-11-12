@@ -1,4 +1,4 @@
-/* S4 lab: TELLURIUM jump detection, Bayesian direction persistence and the tilt (slides 19, 20, 38). */
+/* S4 lab: TELLURIUM jump detection, Bayesian direction persistence and the tilt (slides 19 and 37). */
 (function (root) {
   'use strict';
   const QF = root.QF;
@@ -7,7 +7,7 @@
   const { fmt, signed } = K;
   const LIMIT = 40;
   const MEAN_JUMP = 170;
-  const SOURCE_CONTROL = (value) => K.dayControl(value, [['sim', 'Simulated day (slide 20)']]);
+  const SOURCE_CONTROL = (value) => K.dayControl(value, [['sim', 'Simulated day']]);
   const jumpMarker = (mid) => (j) => ({
     x: j.tick, y: mid[j.tick], color: j.dir > 0 ? COLORS.green : COLORS.coral, shape: j.dir > 0 ? 'up' : 'down', r: 6,
     title: `${j.dir > 0 ? 'Up' : 'Down'} jump ${fmt(j.size, 1)} at tick ${fmt(j.tick)}`,
@@ -190,7 +190,7 @@
     run: (p) => QF.s4.replay(p.day, { tiltFull: p.tiltFull, concentration: p.concentration, floor: p.floor }),
     length: (r) => r.mid.length,
     view: replayView,
-    note: `<b>DirectionTilt alone, re-implemented on the real TELLURIUM book</b> (plus the simulated day from slide 20). After each confirmed jump it updates the posterior and crosses the real spread to the tilted target.
+    note: `<b>DirectionTilt alone, re-implemented on the real TELLURIUM book</b> (plus a simulated day). After each confirmed jump it updates the posterior and crosses the real spread to the tilted target.
       It shines on one-way days and loses on the mixed day 0, which is exactly why the submitted S4 nets it with DriftRider.
       The backtested S4 earned <b>49,974 / 27,534 / 44,398</b> on days −2 / −1 / 0.`,
   };
@@ -198,8 +198,8 @@
   QF.labs.register('s4', {
     kicker: 'STRATEGY LAB · S4 JUMP DIFFUSION',
     title: 'S4 · TELLURIUM jumps and Bayesian directional persistence',
-    evidence: 'Track tick-to-tick volatility thresholds to identify outsized jumps instantly, then use a Beta-Binomial posterior on up versus down jumps to forecast short-term direction (slides 19 and 20).',
-    source: 'Sources: deck slides 10, 19, 20 and 38; Trading_Algorithm/strategies/S4/NOTES.md; backtester/QuantFi Price Data. The simulated day is a seeded calm random walk (σ 1.6) with 9 up jumps, as on slide 20.',
+    evidence: 'Track tick-to-tick volatility thresholds to identify outsized jumps instantly, then use a Beta-Binomial posterior on up versus down jumps to forecast short-term direction (slide 19).',
+    source: 'Sources: deck slides 10, 19 and 37; Trading_Algorithm/strategies/S4/NOTES.md; backtester/QuantFi Price Data. The simulated day is a seeded calm random walk (σ 1.6) with 9 up jumps, as on real day −1.',
     steps: [pathStep, detectorStep, posteriorStep, sizingStep],
     replay,
   });

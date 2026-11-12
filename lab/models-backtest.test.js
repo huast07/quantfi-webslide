@@ -1,4 +1,4 @@
-/* Backtest case tests: the lab's case data must reproduce the held-out results quoted on slide 28, and the
+/* Backtest case tests: the lab's case data must reproduce the held-out results quoted on slide 27, and the
  * case-minus-regular-day comparisons must be internally consistent. Run with: node --test slideshow/lab/ */
 'use strict';
 const test = require('node:test');
@@ -14,7 +14,7 @@ const B = globalThis.QF.bt;
 // trader2.py's NumPy-free voucher maths differs from the tournament build by at most 36 per day (PLAN.md).
 const ROUNDING_TOLERANCE = 40;
 
-test('every case and seed reproduces the held-out P&L on slide 28', () => {
+test('every case and seed reproduces the held-out P&L on slide 27', () => {
   assert.equal(B.cases().length, Object.keys(heldout.cases).length);
   for (const c of B.cases()) {
     for (const seed of B.seeds()) {

@@ -102,7 +102,7 @@ test('S5 Kelly maximiser is mu / (lambda sigma^2)', () => {
   assert.ok(QF.s5.utility(q, 3, 2, 1) > QF.s5.utility(q + 0.1, 3, 2, 1));
 });
 
-test('orchestrator reproduces slide 23: +40, buy 15 -> 10, fill 6 -> +46 with 4 lots of room', () => {
+test('orchestrator reproduces slide 22: +40, buy 15 -> 10, fill 6 -> +46 with 4 lots of room', () => {
   const r = QF.s5.orchestrate({ position: 40, limit: 50, proposal: 15, filled: 6 });
   assert.deepEqual([r.approved, r.fill, r.next, r.buyRoom], [10, 6, 46, 4]);
 });

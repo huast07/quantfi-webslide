@@ -93,11 +93,11 @@
   QF.labs.register('orch', {
     kicker: 'STRATEGY LAB · ORCHESTRATOR',
     title: 'One centralized orchestrator: route, coordinate, control',
-    evidence: 'Specialized strategies. Unified execution. Centralized risk. Every tick the orchestrator routes orders, nets them and enforces position limits before anything reaches the exchange (slides 22 and 23).',
-    source: 'Sources: deck slides 22 and 23; Trading_Algorithm/README.md section 5 (tournament/orchestrator_core.py).',
+    evidence: 'Specialized strategies. Unified execution. Centralized risk. Every tick the orchestrator routes orders, nets them and enforces position limits before anything reaches the exchange (slides 21 and 22).',
+    source: 'Sources: deck slides 21 and 22; Trading_Algorithm/README.md section 5 (tournament/orchestrator_core.py).',
     steps: [routeStep, nettingStep],
     replay: {
-      label: 'Walkthrough · TOFFEE_CAKE (slide 23)',
+      label: 'Walkthrough · TOFFEE_CAKE (slide 22)',
       controls: [
         { id: 'position', label: 'Position before', min: -50, max: 50, step: 1, value: 40 },
         { id: 'limit', label: 'Position limit', min: 10, max: 100, step: 5, value: 50 },
@@ -105,7 +105,7 @@
         { id: 'filled', label: 'Lots the engine fills', min: 0, max: 30, step: 1, value: 6 },
       ],
       render: walkthrough,
-      note: 'Defaults reproduce slide 23 exactly: position +40, limit 50, S1 proposes BUY 15, the orchestrator clips it to 10, the engine fills 6 and the position becomes +46 with 4 lots of buy room. Move the sliders to try other cases.',
+      note: 'Defaults reproduce slide 22 exactly: position +40, limit 50, S1 proposes BUY 15, the orchestrator clips it to 10, the engine fills 6 and the position becomes +46 with 4 lots of buy room. Move the sliders to try other cases.',
     },
   });
 })(window);

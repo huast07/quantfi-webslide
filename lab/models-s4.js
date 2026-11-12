@@ -59,7 +59,7 @@
   /** Simple (single-c) Beta-Binomial predictive, shown alongside the mixture. */
   const simplePosterior = (nUp, nDown, c = DEFAULTS.concentration) => (c + nUp) / (2 * c + nUp + nDown);
 
-  /** A simulated calm random walk plus one-way jumps, as described on slide 20. */
+  /** A simulated calm random walk plus one-way jumps, like real day −1. */
   function simulate(overrides = {}) {
     const s = { ...SIM, ...overrides };
     const next = QF.rng(s.seed);
