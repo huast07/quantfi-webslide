@@ -1,4 +1,4 @@
-/* S4 lab: TELLURIUM jump detection, Bayesian direction persistence and the tilt (slides 19 and 37). */
+/* S4 lab: TELLURIUM jump detection, Bayesian direction persistence and the tilt (slides 19 and 38). */
 (function (root) {
   'use strict';
   const QF = root.QF;
@@ -199,7 +199,7 @@
     kicker: 'STRATEGY LAB · S4 JUMP DIFFUSION',
     title: 'S4 · TELLURIUM jumps and Bayesian directional persistence',
     evidence: 'Track tick-to-tick volatility thresholds to identify outsized jumps instantly, then use a Beta-Binomial posterior on up versus down jumps to forecast short-term direction (slide 19).',
-    source: 'Sources: deck slides 10, 19 and 37; Trading_Algorithm/strategies/S4/NOTES.md; backtester/QuantFi Price Data. The simulated day is a seeded calm random walk (σ 1.6) with 9 up jumps, as on real day −1.',
+    source: 'Sources: deck slides 10, 19 and 38; Trading_Algorithm/strategies/S4/NOTES.md; backtester/QuantFi Price Data. The simulated day is a seeded calm random walk (σ 1.6) with 9 up jumps, as on real day −1.',
     steps: [pathStep, detectorStep, posteriorStep, sizingStep],
     replay,
   });

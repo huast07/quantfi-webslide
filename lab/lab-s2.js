@@ -1,4 +1,4 @@
-/* S2 lab: PINK_PEARLS corrective jumps and GOLDEN_PEARLS step detection (slides 17, 34, 35). */
+/* S2 lab: PINK_PEARLS corrective jumps and GOLDEN_PEARLS step detection (slides 17, 35, 36). */
 (function (root) {
   'use strict';
   const QF = root.QF;
@@ -220,8 +220,8 @@
   QF.labs.register('s2', {
     kicker: 'STRATEGY LAB · S2 STRUCTURAL ALPHA',
     title: 'S2 · PINK corrective jumps and GOLDEN step detection',
-    evidence: 'Estimate the probability and magnitude of corrective jumps in the five-pearl sum; detect emerging steps and trade the remaining move (slides 17, 34, 35). Each step below derives one piece of E[ΔP] = [1 − (1 − h)<sup>H</sup>]βd from the raw data.',
-    source: 'Sources: Team 05 deck slides 10, 17, 34 and 35; Trading_Algorithm/strategies/S2/NOTES.md; Strategy_EDA_and_Ablation_Explained.pdf. Prices: backtester/QuantFi Price Data (days −2, −1, 0).',
+    evidence: 'Estimate the probability and magnitude of corrective jumps in the five-pearl sum; detect emerging steps and trade the remaining move (slides 17, 35, 36). Each step below derives one piece of E[ΔP] = [1 − (1 − h)<sup>H</sup>]βd from the raw data.',
+    source: 'Sources: Team 05 deck slides 10, 17, 35 and 36; Trading_Algorithm/strategies/S2/NOTES.md; Strategy_EDA_and_Ablation_Explained.pdf. Prices: backtester/QuantFi Price Data (days −2, −1, 0).',
     steps: [sumStep, evidenceStep, betaStep, hazardStep, forecastStep, goldenStep],
     replay,
   });

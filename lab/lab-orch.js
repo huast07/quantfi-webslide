@@ -1,4 +1,4 @@
-/* Orchestrator lab: routing, netting and limit enforcement, and the slide-23 TOFFEE_CAKE walkthrough. */
+/* Orchestrator lab: routing, netting and limit enforcement, and the slide-22 TOFFEE_CAKE walkthrough. */
 (function (root) {
   'use strict';
   const QF = root.QF;
@@ -93,8 +93,8 @@
   QF.labs.register('orch', {
     kicker: 'STRATEGY LAB · ORCHESTRATOR',
     title: 'One centralized orchestrator: route, coordinate, control',
-    evidence: 'Specialized strategies. Unified execution. Centralized risk. Every tick the orchestrator routes orders, nets them and enforces position limits before anything reaches the exchange (slides 21 and 22).',
-    source: 'Sources: deck slides 21 and 22; Trading_Algorithm/README.md section 5 (tournament/orchestrator_core.py).',
+    evidence: 'Specialized strategies. Unified execution. Centralized risk. Every tick the orchestrator routes orders, nets them and enforces position limits before anything reaches the exchange (slides 21, 22 and 32).',
+    source: 'Sources: deck slides 21, 22 and 32; Trading_Algorithm/README.md section 5 (tournament/orchestrator_core.py).',
     steps: [routeStep, nettingStep],
     replay: {
       label: 'Walkthrough · TOFFEE_CAKE (slide 22)',

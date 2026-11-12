@@ -1,4 +1,4 @@
-/* S1 lab: TOFFEE_CAKE mean-reversion market making (slides 16 and 33). */
+/* S1 lab: TOFFEE_CAKE mean-reversion market making (slides 16, 33 and 34). */
 (function (root) {
   'use strict';
   const QF = root.QF;
@@ -216,7 +216,7 @@
     kicker: 'STRATEGY LAB · S1 MARKET MAKING',
     title: 'S1 · TOFFEE_CAKE mean reversion and market making',
     evidence: 'Fair price → quote at the touch → manage inventory. ~97k over 3 days, 85% from TOFFEE_CAKE (slide 16). Walk through the derivation, then watch the rule trade the real order books.',
-    source: 'Sources: Team 05 deck slides 10, 12, 16 and 33; Trading_Algorithm/strategies/S1/NOTES.md; Strategy_EDA_and_Ablation_Explained.pdf. Prices: backtester/QuantFi Price Data (days −2, −1, 0).',
+    source: 'Sources: Team 05 deck slides 10, 12, 16, 33 and 34; Trading_Algorithm/strategies/S1/NOTES.md; Strategy_EDA_and_Ablation_Explained.pdf. Prices: backtester/QuantFi Price Data (days −2, −1, 0).',
     steps: [evidenceStep, ouStep, quoteStep, takeStep],
     replay,
   });

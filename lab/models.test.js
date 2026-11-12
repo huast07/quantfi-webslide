@@ -66,7 +66,7 @@ test('S3 implied vol inverts Black-Scholes', () => {
   assert.ok(Math.abs(QF.s3.impliedVol(price, 7500, 7400, 6) - 0.019) < 1e-6);
 });
 
-test('S4 detector finds 8 / 9 / 13 jumps with the slide-20 direction pattern', () => {
+test('S4 detector finds 8 / 9 / 13 jumps with the slide-19 direction pattern', () => {
   const expected = { '-2': [8, 1], '-1': [9, 9], 0: [13, 6] };
   for (const day of QF.DAYS) {
     const { jumps } = QF.s4.detect(QF.book(day, 'tellurium').mid);
@@ -81,7 +81,7 @@ test('S4 direction posterior moves to ~0.9 after 3 one-way jumps and stays near 
   assert.ok(Math.abs(QF.s4.directionPosterior(6, 7).pUp - 0.5) < 0.05);
 });
 
-test('S4 simulated day matches the slide-20 caption: 9 jumps, all up', () => {
+test('S4 simulated day matches the slide-19 caption: 9 jumps, all up', () => {
   const { jumps } = QF.s4.detect(QF.s4.simulate().mid);
   assert.equal(jumps.length, 9);
   assert.ok(jumps.every((j) => j.dir > 0));

@@ -88,21 +88,6 @@ dialog.lab::backdrop{background:#061631c4}
 .lab-note{margin:10px 0 0;padding:10px 13px;background:#fff8e6;border:1px solid #f0dfb2;border-radius:6px;font-size:12px;line-height:1.55;color:#5f4b17}
 
 
-/* Appendix cards that fill the blank appendix slides (37, 38), styled after slide 36. */
-.appendix{position:absolute;left:4.1%;right:4.1%;top:21.5%;bottom:5.5%;display:grid;grid-template-rows:1fr 1fr 1fr auto;gap:1.1cqw;font-family:Poppins,Arial,sans-serif;color:#0f1d3d}
-.appendix .row{background:#6ea8ec;border-radius:.6cqw;padding:1cqw 2.2cqw;display:grid;grid-template-columns:1fr 1fr;column-gap:3cqw;row-gap:.25cqw;align-content:start}
-.appendix .row.light{background:#c6e3fd}
-.appendix .row h4{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;gap:2cqw;margin:0 0 .3cqw;font-size:1.45cqw;font-weight:800}
-.appendix .row h4 em{font-weight:400;font-size:1.2cqw;font-style:italic;color:#12285a}
-.appendix .row.blue h4 em{color:#fff}
-.appendix .row b{display:block;font-size:1.05cqw;letter-spacing:.02em}
-.appendix .row p{margin:0;font-size:1.2cqw;line-height:1.38}
-.appendix .row.blue p{color:#fff}
-.appendix .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4cqw}
-.appendix .tile{background:#6ea8ec;border-radius:.6cqw;padding:1cqw 1.6cqw}
-.appendix .tile strong{display:block;font-size:2.5cqw;font-weight:800;line-height:1.1}
-.appendix .tile span{font-size:1.05cqw;line-height:1.35;color:#0f1d3d}
-
 @media (max-width:860px){
   .lab-derive{grid-template-columns:1fr;padding:14px 16px 4px}
   .lab-steps{flex-direction:row;overflow-x:auto}
@@ -117,7 +102,7 @@ dialog.lab::backdrop{background:#061631c4}
 }
 @media (prefers-reduced-motion:reduce){.lab-dock button{transition:none}}
 
-/* ---------- orchestrator lab (slide 23 card style) ---------- */
+/* ---------- orchestrator lab (slide 22 card style) ---------- */
 .orch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .orch-card{background:#6aa9ee;border-radius:16px;padding:14px 18px;color:#0b1d3a}
 .orch-card h5,.orch-inventory h5{margin:0 0 6px;font-size:14px;font-weight:700}

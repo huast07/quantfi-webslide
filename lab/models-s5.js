@@ -1,5 +1,5 @@
 /* S5 model: risk-budget allocation rules (EQ, A1, A2 Kelly, A3) with limit water-filling,
- * plus the slide-23 orchestrator step (Trading_Algorithm/strategies/S5/NOTES.md, README section 5). */
+ * plus the slide-22 orchestrator step (Trading_Algorithm/strategies/S5/NOTES.md, README section 5). */
 (function (root) {
   'use strict';
   const QF = root.QF;

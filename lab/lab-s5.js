@@ -1,4 +1,4 @@
-/* S5 lab: Kelly sizing and the risk-budget allocator across products (slides 20 and 38). */
+/* S5 lab: Kelly sizing and the risk-budget allocator across products (slides 20, 39 and 40). */
 (function (root) {
   'use strict';
   const QF = root.QF;
@@ -109,8 +109,8 @@
   QF.labs.register('s5', {
     kicker: 'STRATEGY LAB · S5 PORTFOLIO ALLOCATION',
     title: 'S5 · Risk budgeting across products',
-    evidence: 'One risk budget B is split across products by a rule; each product’s lots are its risk share divided by its volatility, water-filled against the position limits (slides 20 and 38).',
-    source: 'Sources: deck slides 20 and 38; Trading_Algorithm/strategies/S5/NOTES.md. σ, spreads and print rates are measured from backtester/QuantFi Price Data and Trades Data for the 7 products in this lab.',
+    evidence: 'One risk budget B is split across products by a rule; each product’s lots are its risk share divided by its volatility, water-filled against the position limits (slides 20, 39 and 40).',
+    source: 'Sources: deck slides 20, 39 and 40; Trading_Algorithm/strategies/S5/NOTES.md. σ, spreads and print rates are measured from backtester/QuantFi Price Data and Trades Data for the 7 products in this lab.',
     steps: [kellyStep, shareStep],
     replay: {
       label: 'Allocator · compare the four rules',

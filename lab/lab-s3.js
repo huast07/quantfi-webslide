@@ -1,4 +1,4 @@
-/* S3 lab: LYCHEE voucher implied-vol smile, residual mean reversion and the VoucherRV rule (slides 18 and 36). */
+/* S3 lab: LYCHEE voucher implied-vol smile, residual mean reversion and the VoucherRV rule (slides 18 and 37). */
 (function (root) {
   'use strict';
   const QF = root.QF;
@@ -135,7 +135,7 @@
       return chart + K.split(
         K.formula(`v = F + ρr = ${fmt(F)} + ${p.rho.toFixed(2)}×${fmt(r, 1)} = <strong>${fmt(v, 2)}</strong><br>slope = RA·sd/50 = ${slope.toFixed(4)}<br>
           target position = <strong>${target}</strong> &nbsp;(${target < 0 ? 'sell the rich strike' : target > 0 ? 'buy the cheap strike' : 'no trade'})`),
-        K.takeaway('The more mispriced the strike, the further the curve sits from the book and the larger the target. With RA = 0.35 a ~2 sd residual already reaches the full 50-lot limit (slide 36). The LYCHEE leg then hedges −Σ qᵢΔᵢ inside a ±50 delta band.'),
+        K.takeaway('The more mispriced the strike, the further the curve sits from the book and the larger the target. With RA = 0.35 a ~2 sd residual already reaches the full 50-lot limit (slide 37). The LYCHEE leg then hedges −Σ qᵢΔᵢ inside a ±50 delta band.'),
       );
     },
   };
@@ -203,14 +203,14 @@
     },
     note: `<b>Simplified re-implementation of VoucherRV on real voucher mids</b>, sampled every 20 ticks, trading at mid ± 1.5 and hedging delta exactly with LYCHEE at mid.
       φ and the residual sd are estimated from the selected day itself (in-sample); the submitted S3 learns them online, smooths the smile shape over 1,000 ticks, rests ≤ 10 lots where the rule-takers do not trade, and hedges inside a ±50 delta band.
-      The backtested S3 earned <b>162.4k over the 3 real days</b> (62.5k, 54.2k, 45.6k; slide 36).`,
+      The backtested S3 earned <b>162.4k over the 3 real days</b> (62.5k, 54.2k, 45.6k; slide 37).`,
   };
 
   QF.labs.register('s3', {
     kicker: 'STRATEGY LAB · S3 VOUCHER RELATIVE VALUE',
     title: 'S3 · Voucher IV mispricing on LYCHEE',
-    evidence: 'Implied vol runs 20–30% above realised vol. We don’t bet on LYCHEE’s direction: we price every strike off one smile, sell the rich strike, buy the cheap one, and hedge the rest (slides 18 and 36).',
-    source: 'Sources: Team 05 deck slides 10, 18 and 36; Trading_Algorithm/strategies/S3/NOTES.md. T at each day’s open uses the EDA convention (8 / 7 / 6 days). Prices: backtester/QuantFi Price Data (voucher surface sampled every 20 ticks).',
+    evidence: 'Implied vol runs 20–30% above realised vol. We don’t bet on LYCHEE’s direction: we price every strike off one smile, sell the rich strike, buy the cheap one, and hedge the rest (slides 18 and 37).',
+    source: 'Sources: Team 05 deck slides 10, 18 and 37; Trading_Algorithm/strategies/S3/NOTES.md. T at each day’s open uses the EDA convention (8 / 7 / 6 days). Prices: backtester/QuantFi Price Data (voucher surface sampled every 20 ticks).',
     steps: [ivStep, smileStep, arStep, sizingStep],
     replay,
   });

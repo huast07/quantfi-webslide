@@ -7,7 +7,7 @@ On a touch screen, swipe left or right on the slide to change slides.
 
 ## Slides
 
-The 38 slide backgrounds are rendered from `Team05Quantifi2026.pptx` (exported to PDF) in the original order and proportions.
+The 42 slide backgrounds are rendered from `Team05Quantifi2026.pptx` (exported to PDF) in the original order and proportions by `tools/build_slides.py`.
 The chart marked "EXPLORE" on slide 27 is an interactive SVG chart backed by saved project data.
 Select a chart to explore asset, day, range, smoothing, P&L, position, or held-out scenarios where available.
 The held-out product attribution is an aggregate across cases and seeds, not scenario-specific.
@@ -16,7 +16,24 @@ Range and smoothing alter the display only; they do not rerun the backtester.
 The scenario chart uses held-out seeds 3-5; the original slide's five-seed metric covers a different set.
 
 Slide 19 (S4) carries its own chart in the slide image, and the S4 lab shows TELLURIUM from the real price data and a simulated day, with the jump detector drawn on top.
-The blank appendix slides 37 (S4) and 38 (S5) are filled from `Trading_Algorithm/strategies/S4/NOTES.md` and `S5/NOTES.md` in the style of the other appendix slides.
+The SLIDES drawer lists every slide grouped by agenda section.
+
+## Explain panel
+
+Every slide has an explanation written for a reader who was not in the room.
+The EXPLAIN button in the header (or the `E` key) shows or hides it, and the choice is remembered in the browser.
+On a wide screen the panel sits beside the slide; on a phone or narrow window it sits under the slide.
+
+Each explanation has the same parts.
+
+- **Summary:** what the slide says in plain words, in one or two sentences.
+- **How to read this slide:** what each chart, number or box shows and why it matters.
+- **Key terms:** the jargon on the slide, each with a short definition that opens in place.
+- **Go deeper:** buttons into the lab for that slide, where one exists.
+- **Related slides:** links to the slides that carry the evidence or the detail.
+
+The text lives in `data/notes.js` (one entry per slide) and `data/glossary.js` (one entry per term).
+Both are plain text, and the tests check that every slide has an explanation and every term has a definition.
 
 ## EDA evidence labs
 
@@ -52,7 +69,7 @@ The lab data reproduces every held-out figure on slide 27 to within floating-poi
 
 ## Strategy labs
 
-On slides 16-22 and the appendices 33-38 a LAB dock appears in the footer (slides 26 and 27 have the backtest lab described above).
+On slides 16-22 and the appendices 32-40 a LAB dock appears in the footer (slides 26 and 27 have the backtest lab described above).
 Each lab has two tabs.
 
 - **Derivation** walks through the model one step at a time, with sliders that recompute each formula and chart from the real data.
@@ -60,12 +77,12 @@ Each lab has two tabs.
 
 | Lab | Slides | Derivation | In action |
 |---|---|---|---|
-| S1 | 16, 33 | OU fair value, reservation price, when to cross | TOFFEE_CAKE quoting and takes |
-| S2 | 17, 34, 35 | pearl-sum deviation, slope β, hazard, expected move, GOLDEN CUSUM | PINK_PEARLS corrective trades |
-| S3 | 18, 36 | implied vol, smile fit, residual AR(1), reservation curve | one delta-hedged voucher strike |
-| S4 | 19, 37 | jump detector, Beta-Binomial direction posterior, tilt sizing | DirectionTilt on TELLURIUM |
-| S5 | 20, 38 | Kelly size, risk shares Q = B·w/σ | allocator comparing EQ, A1, A2 and A3 |
-| Orchestrator | 21, 22 | routing, netting and limit clipping | the slide 22 TOFFEE_CAKE walkthrough |
+| S1 | 16, 33, 34 | OU fair value, reservation price, when to cross | TOFFEE_CAKE quoting and takes |
+| S2 | 17, 35, 36 | pearl-sum deviation, slope β, hazard, expected move, GOLDEN CUSUM | PINK_PEARLS corrective trades |
+| S3 | 18, 37 | implied vol, smile fit, residual AR(1), reservation curve | one delta-hedged voucher strike |
+| S4 | 19, 38 | jump detector, Beta-Binomial direction posterior, tilt sizing | DirectionTilt on TELLURIUM |
+| S5 | 20, 39, 40 | Kelly size, risk shares Q = B·w/σ | allocator comparing EQ, A1, A2 and A3 |
+| Orchestrator | 21, 22, 32 | routing, netting and limit clipping | the slide 22 TOFFEE_CAKE walkthrough |
 
 The replays are simplified re-implementations written for teaching.
 They trade against the recorded books and prints, but they are not the submitted algorithm or the backtester, so their P&L differs from the slide figures.
@@ -74,6 +91,10 @@ Each lab's note states what is simplified and quotes the backtested numbers for 
 ## Code layout
 
 - `deck.js` and `deck.css` run the slide deck and dispatch a `slidechange` event.
+- `data/notes.js` is the slide list: each slide's title, agenda section, explanation, lab and related slides.
+- `data/glossary.js` holds the term definitions the explanations refer to.
+- `lab/deck-model.js` holds the pure helpers over that data: lab buttons, Explain panel HTML and the slide index.
+- `explain.js` and `explain.css` mount and style the Explain panel.
 - `swipe.js` adds touch swipe navigation by pressing the same footer buttons as the arrow keys.
 - `data/lab-data.js` holds the price and trade data for the labs, generated by `tools/build_lab_data.py`.
 - `lab/core.js` decodes that data and holds shared math helpers.
@@ -81,11 +102,20 @@ Each lab's note states what is simplified and quotes the backtested numbers for 
 - `data/case-data.js` holds the backtest cases, generated by `tools/build_case_data.py`.
 - `lab/charts.js` draws the SVG charts and `lab/kit.js` holds small layout helpers.
 - `lab/ui.js` builds the lab dialog and `lab/lab-*.js` define each lab.
-- `lab/inline.js` mounts the footer dock, the slide 9 and 10 evidence hotspots, and the appendix content for slides 37 and 38.
+- `lab/inline.js` mounts the footer dock and the slide 9 and 10 evidence hotspots.
 
 All scripts are plain browser scripts on a shared `window.QF` namespace, so the deck still opens from `file://`.
 
 ## Maintenance
+
+After the deck changes, export it to PDF next to the `slideshow` folder and rebuild the slide images and slide text (needs poppler):
+
+```sh
+python3 slideshow/tools/build_slides.py
+```
+
+Then update `data/notes.js` so it has one entry per slide, in deck order.
+The tests fail until the slide list, the images and the slide text agree.
 
 Rebuild the lab data after the price CSVs change:
 
@@ -99,7 +129,7 @@ Rebuild the backtest case data after the trader or the backtester changes (about
 cd backtester && uv run python ../slideshow/tools/build_case_data.py
 ```
 
-Run the model, EDA evidence and backtest tests with Node 18 or later:
+Run the deck, model, EDA evidence and backtest tests with Node 18 or later:
 
 ```sh
 node --test slideshow/lab/

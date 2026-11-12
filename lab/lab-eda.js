@@ -93,7 +93,7 @@
         baseline: `For a random walk the typical move grows like √k: ±${fmt(at.randomWalk, 0)} over ${fmt(at.k)} ticks.`,
         observed: `TOFFEE moves only ±${fmt(at.actual, 0)} over ${fmt(at.k)} ticks (${pct(at.actual / at.randomWalk)} of the random walk), and ${pct(rev.share, 1)} of ${fmt(rev.leaves)} trips beyond ±${p.band} come back within ${fmt(REVERSION_WINDOW)} ticks.`,
         conclusion: 'Moves stop growing after a few hundred ticks and excursions come back: the price is pulled toward ~5,000. Distance from the mean is itself a forecast of the next move.',
-        strategy: 'S1 models TOFFEE as an Ornstein-Uhlenbeck process and leans quotes and inventory against the gap (slides 16 and 33).',
+        strategy: 'S1 models TOFFEE as an Ornstein-Uhlenbeck process and leans quotes and inventory against the gap (slides 16, 33 and 34).',
       }) + spreadChart + priceChart;
     },
   };
@@ -137,7 +137,7 @@
         baseline: `Independent prices would make the total at least as volatile as its parts: WHITE alone ranges ${fmt(s.pearls.find((x) => x.product === 'WHITE_PEARLS').width)}. Each pearl would share restoring moves equally (${pct(r.equalShare)} each).`,
         observed,
         conclusion: 'The pearls are tied to a hard total of 50,000 and PINK is the one that snaps it back. The deviation D = total − 50,000 forecasts PINK’s next move.',
-        strategy: 'S2 trades PINK against D, sizing with a jump hazard and slope fitted to these jumps (slides 17, 34 and 35).',
+        strategy: 'S2 trades PINK against D, sizing with a jump hazard and slope fitted to these jumps (slides 17, 35 and 36).',
       }) + chart + K.split(widths, K.facts([
         ['Restoring moves of the total', fmt(r.restoring)],
         ['Led by PINK', `${fmt(r.pinkLed)} <small>(${pct(r.pinkShare)} vs ${pct(r.equalShare)} if shared equally)</small>`],
@@ -214,7 +214,7 @@
         baseline: `If moves were normal with the calm σ of ${fmt(j.sigmaCalm, 2)}, a move above ${p.thr} would happen ${formatTiny(j.expected)} times a day.`,
         observed: `${fmt(j.observed)} moves above ${p.thr}; tail weight (kurtosis) ${fmt(j.kurtosis)} against 3 for a normal. ${direction}.`,
         conclusion: `TELLURIUM is a calm random walk plus rare discrete jumps that a threshold separates cleanly. Jumps can share a direction within a day (${sameSide} of ${j.up + j.down} here), but not on every day, so direction has to be learned live, not assumed.`,
-        strategy: 'S4 detects jumps with a volatility threshold and learns their direction with a Beta-Binomial posterior (slides 19 and 37).',
+        strategy: 'S4 detects jumps with a volatility threshold and learns their direction with a Beta-Binomial posterior (slides 19 and 38).',
       }) + chart + K.facts([
         [`Moves larger than ${p.thr}`, fmt(j.observed)],
         ['Expected if moves were normal', formatTiny(j.expected)],
@@ -243,7 +243,7 @@
         baseline: 'A fairly priced option implies the same volatility the underlying delivers: implied ÷ realised ≈ 1.',
         observed: `LYCHEE realised ${fmt(100 * v.realised, 2)}% per √day; at-the-money vouchers implied ${fmt(100 * v.meanIv, 2)}% on average: ${fmt(v.ratio, 2)}×, about ${pct(v.ratio - 1)} too expensive.`,
         conclusion: 'Vouchers carry a persistent volatility premium. LYCHEE’s own direction is unpredictable, so the edge is relative: price every strike off one fitted smile and trade the strikes that stray from it, hedged.',
-        strategy: 'S3 fits the smile, sells rich strikes, buys cheap ones and delta-hedges with LYCHEE (slides 18 and 36).',
+        strategy: 'S3 fits the smile, sells rich strikes, buys cheap ones and delta-hedges with LYCHEE (slides 18 and 37).',
       }) + chart + K.facts(QF.DAYS.map((d) => {
         const x = cached(`vol:${d}`, () => E.volEvidence(d));
         return [`${DAY_NAMES[d]}: implied ÷ realised`, `${fmt(x.ratio, 2)}× <small>(${fmt(100 * x.meanIv, 2)}% vs ${fmt(100 * x.realised, 2)}%)</small>`];

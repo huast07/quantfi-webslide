@@ -20,7 +20,7 @@
     vol: { label: 'Its volatility estimate (σ per tick)', digits: 2, how: 'An exponentially weighted estimate of squared mid changes, updated every tick. It is how the strategy notices that the market has become calmer or wilder.' },
     dev: { label: 'Pearl-sum deviation D', digits: 1, how: 'S2 trades PINK_PEARLS against D = pearl total − 50,000, sized by its fitted slope and jump hazard (slide 17).' },
     mode: { label: 'GOLDEN step detector (0 plateau, ±1 step)', digits: 0, how: 'S2 runs a CUSUM on GOLDEN_PEARLS: a flag of ±1 means it believes a step is under way and trades the remaining move (slide 35).' },
-    mom: { label: 'BLUE momentum signal', digits: 3, how: 'S2 leans BLUE_PEARLS with its momentum signal (slide 34).' },
+    mom: { label: 'BLUE momentum signal', digits: 3, how: 'S2 leans BLUE_PEARLS with its momentum signal (slide 35).' },
     iv: { label: 'Fitted implied volatility for this strike', digits: 4, how: 'S3 refits the voucher smile every tick and trades strikes priced away from it, delta-hedged with LYCHEE (slide 18).' },
     pup: { label: 'P(next jump up), S4’s direction posterior', digits: 2, y: [0, 1], how: 'After every confirmed jump S4 updates a Beta-Binomial posterior on direction and tilts its TELLURIUM position toward it (slide 19).' },
     follow: { label: 'Post-jump follow-through β', digits: 2, how: 'S4’s running estimate of how far TELLURIUM keeps drifting after a jump; it sizes the drift trade.' },

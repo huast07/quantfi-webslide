@@ -1,0 +1,74 @@
+/* Explain panel, its header toggle and the grouped slide index. Palette follows deck.css (navy #102d6c, mint #82e19c).
+ * Wide screens: the panel sits to the right of the slide and scrolls inside the slide's height.
+ * Narrow screens: the panel flows under the slide and the page scrolls, with the footer pinned. */
+
+:root{--explain-w:0px;--explain-gap:0px;--deck-pad:2vw}
+body.explain-open{--explain-w:clamp(320px,28vw,420px);--explain-gap:16px}
+
+/* ---------- layout ---------- */
+.deck-row{display:flex;justify-content:center;align-items:stretch;gap:var(--explain-gap);width:100%}
+.stage-col{flex:0 0 auto;display:flex;align-items:center}
+.stage{width:min(calc(100vw - 2 * var(--deck-pad) - var(--explain-w) - var(--explain-gap)),calc((100vh - 150px) * 1.77733))}
+
+.explain{position:relative;flex:0 0 var(--explain-w);min-height:min(480px,calc(100vh - 150px));background:#153b83;border:1px solid #2f58a6;border-radius:8px;box-shadow:0 20px 60px #071e4c80;color:#e8f0ff;overflow:hidden}
+.explain-scroll{position:absolute;inset:0;overflow:auto;padding:20px 22px 24px;scrollbar-color:#4467a1 transparent}
+.explain-close{position:absolute;top:8px;right:8px;z-index:1;width:32px;height:32px;display:grid;place-items:center;background:transparent;border:0;border-radius:6px;color:#bdd2f6;font-size:22px;line-height:1}
+.explain-close:hover{background:#ffffff1a;color:#fff}
+
+/* ---------- content ---------- */
+.explain-kicker{margin:0 34px 6px 0;font-size:10px;font-weight:600;letter-spacing:.1em;color:#91c4ff}
+.explain-title:focus{outline:0}
+.explain-title{margin:0 0 12px;font-size:19px;line-height:1.25;color:#fff}
+.explain-gist{margin:0;padding:12px 14px;background:#0f2f6e;border-left:3px solid #82e19c;border-radius:0 6px 6px 0;font-size:14.5px;line-height:1.55;color:#fff}
+.explain-block{margin-top:20px}
+.explain-block h3{margin:0 0 8px;font-size:10px;font-weight:700;letter-spacing:.12em;color:#82e19c}
+.explain-read{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.explain-read li{position:relative;padding-left:16px;font-size:13px;line-height:1.55;color:#d9e6fc}
+.explain-read li::before{content:"";position:absolute;left:2px;top:.62em;width:6px;height:6px;border-radius:50%;background:#82e19c}
+.explain-read b{color:#fff;font-weight:600}
+
+.explain-terms{display:grid;gap:6px}
+.explain-terms details{border:1px solid #3d62a8;border-radius:6px;background:#17408d}
+.explain-terms details[open]{background:#0f2f6e;border-color:#5f86cf}
+.explain-terms summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer;list-style:none;border-radius:6px}
+.explain-terms summary::-webkit-details-marker{display:none}
+.explain-terms summary::after{content:"+";flex:none;font-size:16px;font-weight:400;line-height:1;color:#82e19c}
+.explain-terms details[open] summary::after{content:"−"}
+.explain-terms summary:hover{background:#ffffff12}
+.explain-terms p{margin:0;padding:0 12px 11px;font-size:12.5px;line-height:1.55;color:#d9e6fc}
+
+.explain-blurb{margin:0 0 10px;font-size:12.5px;line-height:1.55;color:#d9e6fc}
+.explain-actions{display:flex;flex-wrap:wrap;gap:8px}
+.explain-actions button{background:#82e19c;color:#143a80;border:1px solid #82e19c;border-radius:4px;padding:9px 12px;font:700 11px/1.1 Poppins,Arial,sans-serif;letter-spacing:.03em}
+.explain-actions button.secondary{background:transparent;color:#fff;border-color:#7795c9}
+.explain-actions button:hover{box-shadow:0 4px 14px #0003}
+
+.explain-related{display:grid;gap:6px}
+.explain-related button{display:flex;align-items:baseline;gap:10px;width:100%;padding:8px 12px;text-align:left;background:transparent;border:1px solid #3d62a8;border-radius:6px;color:#e8f0ff;font:500 12.5px/1.35 Poppins,Arial,sans-serif}
+.explain-related button span{flex:none;color:#82e19c;font-weight:700}
+.explain-related button:hover{background:#ffffff12;border-color:#5f86cf}
+
+.explain button:focus-visible,.explain summary:focus-visible{outline:3px solid #82e19c;outline-offset:2px}
+
+/* ---------- header toggle and slide index ---------- */
+#explainToggle[aria-expanded="true"]{background:#82e19c;border-color:#82e19c;color:#143a80}
+.index-section{margin:26px 0 8px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#91c4ff}
+.index-section:first-child{margin-top:8px}
+
+/* ---------- narrow screens: panel under the slide ---------- */
+@media(max-width:1099px){
+  body.explain-open{--explain-w:0px;--explain-gap:0px}
+  .deck-row{flex-direction:column;align-items:center;gap:12px}
+  body.explain-open main{align-items:flex-start}
+  /* Percent widths here, not 100vw, so a classic scrollbar never causes sideways scroll. */
+  .stage-col{width:100%;justify-content:center}
+  .stage{width:min(100%,calc((100vh - 150px) * 1.77733))}
+  .explain{flex:none;width:min(calc(100vw - 24px),760px);min-height:0;margin-bottom:12px;box-shadow:none}
+  .explain-scroll{position:static;overflow:visible}
+  body>footer{position:sticky;bottom:0;z-index:2;background:#102d6c}
+}
+@media(max-width:700px){
+  .stage{width:100%}
+  .header-right{gap:8px}
+  .explain-scroll{padding:16px 16px 20px}
+}
